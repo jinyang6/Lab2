@@ -21,7 +21,7 @@ public class SolveMaze {
         /*
          * Create a new 10 x 10 maze. Feel free to change these values.
          */
-        Maze maze = new Maze(3, 3);
+        Maze maze = new Maze(4, 4);
         int rightTimes = 0;
         int leftTimes = 0;
         /*
@@ -41,19 +41,21 @@ public class SolveMaze {
                 System.out.println(step);
                 break;
             } else {
+                System.out.println(maze.toString());
+                System.out.println();
                 if (maze.canMove()) {
                     while (maze.canMove()) {
                         maze.move();
                     }
                 } else {
-                    if (rightTimes < 3) {
+                    if (leftTimes > 2) {
                         maze.turnRight();
                         rightTimes = rightTimes + 1;
-                        leftTimes = 0;
-                    } else if (leftTimes < 3){
+                        rightTimes = 0;
+                    } else if (rightTimes < 2){
                         maze.turnLeft();
                         leftTimes = leftTimes + 1;
-                        rightTimes = 0;
+                        leftTimes = 0;
                     }
                 }
             }
