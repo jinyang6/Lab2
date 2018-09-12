@@ -16,12 +16,14 @@ public class SolveMaze {
      * @param unused unused input arguments
      */
 
+
     public static void main(final String[] unused) {
         /*
          * Create a new 10 x 10 maze. Feel free to change these values.
          */
-        Maze maze = new Maze(10, 10);
-
+        Maze maze = new Maze(3, 3);
+        int rightTimes = 0;
+        int leftTimes = 0;
         /*
          * Pick (0, 0), the bottom left corner, as the starting point.
          * Put the end in the top right corner.
@@ -35,8 +37,27 @@ public class SolveMaze {
          */
         for (int step = 0; step < 1000; step++) {
             // Implement your maze solving algorithm here
+            if (maze.isFinished()) {
+                System.out.println(step);
+                break;
+            } else {
+                if (maze.canMove()) {
+                    while (maze.canMove()) {
+                        maze.move();
+                    }
+                } else {
+                    if (rightTimes < 3) {
+                        maze.turnRight();
+                        rightTimes = rightTimes + 1;
+                        leftTimes = 0;
+                    } else if (leftTimes < 3){
+                        maze.turnLeft();
+                        leftTimes = leftTimes + 1;
+                        rightTimes = 0;
+                    }
+                }
+            }
         }
-
         if (maze.isFinished()) {
             System.out.println("You solved the maze!");
         } else {
